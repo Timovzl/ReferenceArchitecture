@@ -6,6 +6,6 @@ namespace ReferenceArchitecture.Domain.Orders
 	{
 		Task AddOrder(Order order);
 
-		Task<Order> GetOrderById(long orderId);
+		Task<Order?> GetOrderById(long orderId);
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ReferenceArchitecture.Domain.Orders;
+using ReferenceArchitecture.Tools.DomainModeling;
 
 namespace ReferenceArchitecture.Infrastructure.Databases.EntityConfigurations
 {
@@ -11,7 +12,8 @@ namespace ReferenceArchitecture.Infrastructure.Databases.EntityConfigurations
 			// TODO Enhancement: Most of this can be automated by convention, with a proper library (e.g. builder.DomainEntity() or builder.DomainAggregate())
 
 			builder.Property(e => e.Id)
-				.ValueGeneratedNever();
+				.ValueGeneratedNever()
+				.HasConversion(value => (long)value, column => (Identity<Order, long>)column);
 
 			builder.Property(e => e.CreationDateTime);
 
@@ -35,7 +37,7 @@ namespace ReferenceArchitecture.Infrastructure.Databases.EntityConfigurations
 
 			builder.HasKey(e => e.Id);
 			builder.HasIndex(e => e.CreationDateTime);
-			builder.HasIndex(e => e.ShippingStatus.DateTime);
+			//builder.HasIndex(e => e.ShippingStatus.DateTime);
 
 			// #TODO: Row version
 		}

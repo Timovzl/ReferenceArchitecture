@@ -28,9 +28,9 @@ namespace ReferenceArchitecture.Infrastructure.Databases.Repos
 			return Task.CompletedTask;
 		}
 
-		public Task<Order> GetOrderById(long orderId)
+		public async Task<Order?> GetOrderById(long orderId)
 		{
-			return this.BaseSelectQuery
+			return await this.BaseSelectQuery
 				.SingleOrDefaultAsync(o => o.Id == orderId);
 		}
 	}

@@ -7,7 +7,7 @@ using ReferenceArchitecture.Domain.Orders;
 
 namespace ReferenceArchitecture.Application.ApplicationServices
 {
-	internal class OrderShippingApplicationService
+	public class OrderShippingApplicationService
 	{
 		private IDbContextProvider<IReferenceDatabase> DbContextProvider { get; }
 		private IOrderRepo OrderRepo { get; }
@@ -28,31 +28,25 @@ namespace ReferenceArchitecture.Application.ApplicationServices
 			{
 				await this.OrderRepo.AddOrder(order);
 
-				// #TODO: Make SaveChanges[Async] accessible from execution scope, even without knowledge of the exact DbContext type
-				//await executionScope.DbContext.SaveChangesAsync();
+				await executionScope.DbContext.SaveChangesAsync();
 				executionScope.Complete();
 			});
 
 			return order.Id;
 		}
 
-		public async Task<string> GetOrderStatus(long orderId)
+		public Task<string> GetOrderStatus(long orderId)
 		{
-			// #TODO: Reduce overload count by putting TState into executionScope
-			// #TODO: Add Task<T> return type overloads
+			// #TODO: Fix bug in execution strategy override for MockDbContextProvider
 
-			string result = null!;
-
-			await this.DbContextProvider.ExecuteInDbContextScopeAsync(async executionScope =>
+			return this.DbContextProvider.ExecuteInDbContextScopeAsync(async executionScope =>
 			{
 				var order = await this.OrderRepo.GetOrderById(orderId);
 
 				if (order is null) throw new KeyNotFoundException($"Order {orderId} does not exist.");
 
-				result = order.ShippingStatus.ToString(); // #TODO: Add adapter, so that domain model is free to change
+				return order.ShippingStatus.ToString(); // #TODO: Add adapter, so that domain model is free to change
 			});
-
-			return result;
 		}
 
 		public Task ShipOrder(long orderId)
@@ -67,8 +61,7 @@ namespace ReferenceArchitecture.Application.ApplicationServices
 
 				//await this.OrderRepo.Update(order);
 
-				// #TODO: Make SaveChanges[Async] accessible from execution scope, even without knowledge of the exact DbContext type
-				//await executionScope.DbContext.SaveChangesAsync();
+				await executionScope.DbContext.SaveChangesAsync();
 				executionScope.Complete();
 			});
 		}
