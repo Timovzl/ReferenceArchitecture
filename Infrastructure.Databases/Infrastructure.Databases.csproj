@@ -12,12 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repos\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.1.20451.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0-rc.1.20451.13" />
+    <PackageReference Include="Architect.EntityFramework.AmbientDbContexts" Version="1.0.0-*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0-*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-*" />
   </ItemGroup>
 
 </Project>

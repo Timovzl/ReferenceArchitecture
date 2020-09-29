@@ -9,10 +9,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure.Databases\Infrastructure.Databases.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApplicationServices\" />
     <Folder Include="Adapters\" />
     <Folder Include="ContractModels\" />
   </ItemGroup>
