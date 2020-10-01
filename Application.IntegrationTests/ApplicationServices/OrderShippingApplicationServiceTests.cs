@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +29,7 @@ namespace ReferenceArchitecture.Application.IntegrationTests.ApplicationServices
 			this.Connection = new SqliteConnection("Filename=:memory:");
 			this.Connection.Open();
 
+			// For some reason Entity Framework uses "first registration wins" instead of "last registration wins", so configure our DbContext for testing first
 			this.HostBuilder.ConfigureServices(services => services.AddPooledDbContextFactory<ReferenceDbContext>(
 				context => context.UseSqlite(this.Connection)));
 

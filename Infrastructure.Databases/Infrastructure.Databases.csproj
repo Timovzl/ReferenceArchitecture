@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Architect.EntityFramework.AmbientDbContexts" Version="1.0.0-preview-7.0.0" />
+    <PackageReference Include="Architect.EntityFramework.AmbientDbContexts" Version="1.0.0-preview-7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0-*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-*" />
