@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReferenceArchitecture.Application.ApplicationServices;
 using ReferenceArchitecture.Infrastructure.Databases;
+using ReferenceArchitecture.Testing.Common.DomainBuilders;
 using Xunit;
 
 namespace ReferenceArchitecture.Application.IntegrationTests.ApplicationServices
 {
-	public class OrderShippingApplicationServiceTests
+	public class OrderShippingApplicationServiceTests : IDisposable
 	{
 		private DbConnection Connection { get; }
 		private HostBuilder HostBuilder { get; } = new HostBuilder();
@@ -22,7 +24,8 @@ namespace ReferenceArchitecture.Application.IntegrationTests.ApplicationServices
 
 		private OrderShippingApplicationService ApplicationService => this.Host.Services.GetRequiredService<OrderShippingApplicationService>();
 
-		private ReferenceDbContext DbContext => this.Host.Services.GetRequiredService<IDbContextFactory<ReferenceDbContext>>().CreateDbContext();
+		private ReferenceDbContext DbContext => this._dbContext ??= this.Host.Services.GetRequiredService<IDbContextFactory<ReferenceDbContext>>().CreateDbContext();
+		private ReferenceDbContext? _dbContext;
 
 		public OrderShippingApplicationServiceTests()
 		{
@@ -36,6 +39,13 @@ namespace ReferenceArchitecture.Application.IntegrationTests.ApplicationServices
 			this.HostBuilder.ConfigureServices(services => services.AddReferenceApplication());
 		}
 
+		public void Dispose()
+		{
+			this._dbContext?.Dispose();
+			this.Host.Dispose();
+			this.Connection.Dispose();
+		}
+
 		private IHost CreateHost()
 		{
 			var host = this.HostBuilder.Build();
@@ -46,7 +56,21 @@ namespace ReferenceArchitecture.Application.IntegrationTests.ApplicationServices
 		[Fact]
 		public async Task GetOrderStatus_WithNonexistentOrder_ShouldThrow()
 		{
-			await Assert.ThrowsAsync<KeyNotFoundException>(() => this.ApplicationService.GetOrderStatus(orderId: 999));
+			await Assert.ThrowsAsync<KeyNotFoundException>(() => this.ApplicationService.GetOrderShippingResult(orderId: 999));
+		}
+
+		[Fact]
+		public async Task GetOrderStatus_WithExistingOrder_ShouldReturnExpectedResult()
+		{
+			const int orderId = 1;
+			var order = new OrderBuilder().WithId(orderId).WithDescription("ExampleOrder").Build();
+			this.DbContext.Orders.Add(order);
+			this.DbContext.SaveChanges();
+			this.DbContext.ChangeTracker.Clear();
+
+			var result = await this.ApplicationService.GetOrderShippingResult(orderId);
+			
+			Assert.Equal("Unshipped", result);
 		}
 
 		[Fact]
