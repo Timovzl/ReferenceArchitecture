@@ -52,7 +52,6 @@ namespace ReferenceArchitecture.Application.ApplicationServices
 				//await this.OrderRepo.Update(order);
 
 				await executionScope.DbContext.SaveChangesAsync();
-				executionScope.Complete();
 			});
 		}
 
