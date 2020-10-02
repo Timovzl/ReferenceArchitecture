@@ -2,6 +2,7 @@
 using Architect.AmbientContexts;
 using Architect.Identities;
 using ReferenceArchitecture.Domain.Orders;
+using ReferenceArchitecture.Testing.Common.DomainBuilders;
 using Xunit;
 
 namespace ReferenceArchitecture.Domain.UnitTests.Orders
@@ -14,8 +15,10 @@ namespace ReferenceArchitecture.Domain.UnitTests.Orders
 			using var idScope = new IdGeneratorScope(new CustomIdGenerator(id: 1));
 			using var clockScope = new ClockScope(() => DateTime.UnixEpoch);
 
-			var description = new OrderDescription("Description");
-			var order = new Order(description);
+			var orderBuilder = new OrderBuilder()
+				.WithDescription("Description");
+
+			var order = orderBuilder.Build();
 
 			Assert.Equal(1, order.Id);
 			Assert.Equal(DateTime.UnixEpoch, order.CreationDateTime);
