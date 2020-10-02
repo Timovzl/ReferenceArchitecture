@@ -29,7 +29,6 @@ namespace ReferenceArchitecture.Application.ApplicationServices
 				await this.OrderRepo.AddOrder(order);
 
 				await executionScope.DbContext.SaveChangesAsync();
-				executionScope.Complete();
 			});
 
 			return order.Id;
@@ -62,7 +61,6 @@ namespace ReferenceArchitecture.Application.ApplicationServices
 				//await this.OrderRepo.Update(order);
 
 				await executionScope.DbContext.SaveChangesAsync();
-				executionScope.Complete();
 			});
 		}
 	}
