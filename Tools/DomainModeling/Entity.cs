@@ -37,11 +37,10 @@ namespace ReferenceArchitecture.Tools.DomainModeling
 		/// Implicitly convertible to and from <typeparamref name="TId"/>.
 		/// </para>
 		/// </summary>
-		public Identity<TEntity, TId> Id { get; }
+		public abstract Identity<TEntity, TId> Id { get; }
 
-		protected Entity(TId id)
+		protected Entity()
 		{
-			this.Id = id;
 		}
 	}
 
