@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Architect.EntityFramework.AmbientDbContexts;
+using Architect.EntityFramework.DbContextManagement;
 using Microsoft.EntityFrameworkCore;
 using ReferenceArchitecture.Domain.Orders;
 

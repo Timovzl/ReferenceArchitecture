@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 using System.Threading.Tasks;
-using Architect.EntityFramework.AmbientDbContexts;
+using Architect.EntityFramework.DbContextManagement;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using ReferenceArchitecture.Domain.Orders;

@@ -1,4 +1,4 @@
-﻿using Architect.EntityFramework.AmbientDbContexts;
+﻿using Architect.EntityFramework.DbContextManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ReferenceArchitecture.Domain.Databases;

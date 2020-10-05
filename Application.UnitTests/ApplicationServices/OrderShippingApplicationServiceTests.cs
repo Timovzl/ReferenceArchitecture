@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Architect.EntityFramework.AmbientDbContexts;
+using Architect.EntityFramework.DbContextManagement;
 using Moq;
 using ReferenceArchitecture.Application.ApplicationServices;
 using ReferenceArchitecture.Domain.Databases;

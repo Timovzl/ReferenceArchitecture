@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Architect.EntityFramework.AmbientDbContexts;
+using Architect.EntityFramework.DbContextManagement;
 using ReferenceArchitecture.Application.Adapters.Orders;
 using ReferenceArchitecture.Domain.Databases;
 using ReferenceArchitecture.Domain.Orders;

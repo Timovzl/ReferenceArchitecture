@@ -12,8 +12,4 @@
     <ProjectReference Include="..\Infrastructure.Databases\Infrastructure.Databases.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ContractModels\" />
-  </ItemGroup>
-
 </Project>
